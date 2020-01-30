@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CreateUser } from '../Services/UserService';
+import { createUser } from '../Services/UserService';
 
 const SignUpPage = () => {
   const initialState = {
@@ -8,30 +8,29 @@ const SignUpPage = () => {
     displayName: ""
   }
   const [user, setuser] = useState(initialState);
-
+  
   const handleSignUp = (event) => {
     event.preventDefault();
-    console.log(event.target.username.value);
     setuser({
       ...user,
-      username: event.target.username.value,
-      password: event.target.password.value,
+      username: event.target.username.value.replace(/\s/g, ""),
+      password: event.target.password.value.replace(/\s/g, ""),
       displayName: event.target.displayName.value
     });
   }
 
   useEffect(() => {
     if(user.username.length >= 6 && user.password.length >=6 && user.displayName.length > 0){
-      CreateUser(user);
+      createUser(user);
     }
   }, [user]);
 
   return (
     <div>
       <form onSubmit={handleSignUp}>
-        <label>Username: </label><input type="text" required name="username" minLength="6"></input><br/>
-        <label>Password: </label><input type="password" required name="password" minLength="6"></input><br/>
-        <label>Display Name: </label><input type="text" required name="displayName"></input><br/>
+        <label>Username: <input type="text" required name="username" minLength="6" maxLength="12" placeholder="No spaces" ></input> </label><br/>
+        <label>Password:  <input type="password" required name="password" minLength="6" maxLength="16" placeholder="No spaces" ></input> </label><br/>
+        <label>Display Name: <input type="text" required name="displayName" maxLength="16" ></input></label><br/>
         <button>Register</button>
       </form>
     </div>
