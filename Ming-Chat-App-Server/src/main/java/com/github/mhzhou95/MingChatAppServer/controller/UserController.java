@@ -59,6 +59,7 @@ public class UserController {
         return responseDelete;
     }
 
+    @CrossOrigin
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody User user){
         User userToLogin = userService.loginUser(user);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { loginUser } from '../Services/UserService';
 
-const LoginPage = () => {
+const LoginPage = (props) => {
   const initialState = {
     username: "",
     password: ""
@@ -21,9 +21,9 @@ const LoginPage = () => {
   useEffect(() => {
     if(userToLogin.username.length >= 6 && userToLogin.password.length >= 6)
     { 
-      loginUser(userToLogin)
+      loginUser(userToLogin).then( data => console.log(data)).then(props.history.push("/"))
     }
-  }, [userToLogin]);
+  }, [userToLogin, props.history]);
   return (
     <div>
       <form onSubmit={handleLogin}>

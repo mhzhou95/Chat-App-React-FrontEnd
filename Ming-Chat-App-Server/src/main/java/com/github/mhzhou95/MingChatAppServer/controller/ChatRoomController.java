@@ -11,15 +11,20 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-@RequestMapping("/chatroom")
+@RequestMapping("/api/chatroom")
 @Controller
 public class ChatRoomController {
     private ChatroomService chatroomService;
 
     public ChatRoomController(ChatroomService chatroomService){
+
         this.chatroomService = chatroomService;
+        ChatRoom chatroom = new ChatRoom();
+        chatroom.setName("general");
+        this.createChatRoom(chatroom);
     }
 
+    @CrossOrigin
     @PostMapping("/")
     public ResponseEntity<?> createChatRoom(@RequestBody ChatRoom chatRoom){
         ChatRoom chatroom = chatroomService.createChatroom(chatRoom);
@@ -27,6 +32,7 @@ public class ChatRoomController {
         return  responseCreate;
     }
 
+    @CrossOrigin
     @GetMapping("/")
     public ResponseEntity<?> findAll(){
         Collection<ChatRoom> chatRooms = chatroomService.findAll();

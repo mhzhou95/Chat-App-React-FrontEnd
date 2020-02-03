@@ -1,9 +1,10 @@
 import React from 'react';
+import ChatRoomList from './ChatRoomList';
 
 const Home = () => {
   return (
     <div>
-      Welcome To ChatCity
+      <ChatRoomList />
     </div>
   );
 }
