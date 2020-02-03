@@ -27,7 +27,7 @@ public class MessageService {
     }
 
     public Message createMessage(Message message) {
-        if(message.getUserId().length() > 0) {
+        if(message.getUserId().length() > 0 && message.getText().length() >0) {
             Message newMessage = messageRepository.save(message);
             return newMessage;
         }
