@@ -40,7 +40,6 @@ public class UserService{
         }return null;
     }
 
-
     public User deleteUser(String id) {
         User userToDelete = findUser(id);
         userRepository.delete(userToDelete);
@@ -55,5 +54,10 @@ public class UserService{
         userToUpdate.setChatRoomId(user.getChatRoomId());
         userRepository.save(userToUpdate);
         return  userToUpdate;
+    }
+
+    public User loginUser(User user) {
+        User foundUser = userRepository.findByUsernameEqualsAndPasswordEquals(user.getUsername(), user.getPassword());
+        return foundUser;
     }
 }

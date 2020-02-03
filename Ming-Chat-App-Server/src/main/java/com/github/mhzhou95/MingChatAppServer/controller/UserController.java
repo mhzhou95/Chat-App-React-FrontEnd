@@ -22,7 +22,7 @@ public class UserController {
     @CrossOrigin
     @GetMapping("/")
     public ResponseEntity<?> findAll(){
-        Collection<User> allUsers = userService.findAll();
+        Collection<User> allUsers = userService.findAll(); 
         ResponseEntity<?> responseAllUsers = new ResponseEntity<>(allUsers, HttpStatus.OK);
         return responseAllUsers;
     }
@@ -59,5 +59,11 @@ public class UserController {
         return responseDelete;
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> loginUser(@RequestBody User user){
+        User userToLogin = userService.loginUser(user);
+        ResponseEntity<?> reponseLogin = new ResponseEntity<>(userToLogin, HttpStatus.OK);
+        return reponseLogin;
+    }
 }
 
