@@ -4,16 +4,19 @@ import Navbar from './Components/Navbar';
 import Home from './Components/Home';
 import SignUpPage from './Components/SignUpPage';
 import LoginPage from './Components/LoginPage';
+import { UserProvider } from './State/UserState';
 
 function App() {
   return (
     <BrowserRouter>
-    <Navbar/>
-      <Switch>
-        <Route exact path ="/" component={Home} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/register" component={SignUpPage}/>
-      </Switch>
+      <UserProvider>
+        <Navbar/>
+        <Switch>
+          <Route exact path ="/" component={Home} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/register" component={SignUpPage}/>
+        </Switch>
+      </UserProvider>
     </BrowserRouter>
   );
 }
