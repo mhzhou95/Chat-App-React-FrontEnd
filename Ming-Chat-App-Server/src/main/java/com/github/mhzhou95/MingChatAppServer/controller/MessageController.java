@@ -1,6 +1,7 @@
 package com.github.mhzhou95.MingChatAppServer.controller;
 
 import com.github.mhzhou95.MingChatAppServer.model.Message;
+import com.github.mhzhou95.MingChatAppServer.model.User;
 import com.github.mhzhou95.MingChatAppServer.service.MessageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-@RequestMapping(value = "/messages")
+@RequestMapping(value = "/api/messages")
 @Controller
 public class MessageController {
     private MessageService messageService;
