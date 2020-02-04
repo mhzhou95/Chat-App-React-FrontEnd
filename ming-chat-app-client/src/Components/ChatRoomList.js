@@ -9,7 +9,7 @@ const ChatRoomList = (props) => {
 
   useEffect(() => {
     getChatRoom().then( data => setchatrooms(data));
-  }, [setchatrooms] );
+  }, [chatrooms] );
 
   return (
     <div>

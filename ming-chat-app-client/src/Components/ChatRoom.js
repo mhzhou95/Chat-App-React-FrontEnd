@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Message from './Message';
 import { sendMessage } from '../Services/MessageService';
+import { addMessage } from '../Services/ChatRoomService';
 
 const ChatRoom = (props) => {
-  const user = props.user;
-  const [ message, setMessage ] = useState({
+  const initialState = {
     text: "",
     userId: ""
-  })
+  }
+  const user = props.user;
+  const [ message, setMessage ] = useState(initialState)
 
-  console.log(user);
   const messageSend = (event) => {
     event.preventDefault();
     setMessage( {
@@ -17,15 +18,18 @@ const ChatRoom = (props) => {
       text: event.target.message.value,
       userId: user.id
     })
+    event.target.message.value = "";
   }
   useEffect(() => {
-    if( message.text.length > 0 && message.userId.length > 0 ){
+      if( message.text.length > 0 && message.userId.length > 0 ){
       sendMessage(message)
+      .then( data => addMessage(props.chatroom.id, data))
+      .then( setMessage(initialState))
       }
-  }, [message]);
+  }, [message, props, initialState]);
   return (
     <div>
-      <p>Chatroom id: {props.chatroom.id}</p>
+      <p>Chatroom id: {props.chatroom.id} </p>
       <p>Chatroom name: {props.chatroom.name} </p>
       Chatroom messages: {props.chatroom.messages.map( (message) => <Message key={message.id} message ={message} />)}
 

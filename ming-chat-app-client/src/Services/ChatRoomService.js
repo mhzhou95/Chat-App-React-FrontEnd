@@ -5,8 +5,9 @@ const getChatRoom = () => {
   .then( response => response.data );
 }
 
-// const addMessage= () => {
-//   return axios.
-// }
+const addMessage = (id, message) => {
+  return axios.post(`http://localhost:8080/api/chatroom/${id}/messages/`, message)
+  .then( response => console.log(response.data))
+}
 
-export { getChatRoom };
+export { getChatRoom , addMessage};

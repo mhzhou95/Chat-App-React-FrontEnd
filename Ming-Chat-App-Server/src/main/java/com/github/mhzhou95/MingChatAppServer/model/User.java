@@ -20,6 +20,11 @@ public class User {
     private String displayName;
     private File image = null;
     private Long chatRoomId;
+    private boolean authenticated = true;
+
+    public boolean isAuthenticated() {
+        return authenticated;
+    }
 
     public Long getChatRoomId() {
         return chatRoomId;
