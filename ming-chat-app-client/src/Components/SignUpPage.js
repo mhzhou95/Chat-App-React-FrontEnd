@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { createUser } from '../Services/UserService';
 
-const SignUpPage = () => {
+const SignUpPage = (props) => {
   const initialState = {
     username: "",
     password: "",
@@ -21,9 +21,10 @@ const SignUpPage = () => {
 
   useEffect(() => {
     if(user.username.length >= 6 && user.password.length >=6 && user.displayName.length > 0){
-      createUser(user);
+      createUser(user)
+      props.history.push("/login")
     }
-  }, [user]);
+  }, [user, props.history ]);
 
   return (
     <div>

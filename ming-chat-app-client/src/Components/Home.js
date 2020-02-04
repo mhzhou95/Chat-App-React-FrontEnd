@@ -1,19 +1,19 @@
-import React, { useContext, useEffect} from 'react';
+import React, { useContext } from 'react';
 import ChatRoomList from './ChatRoomList';
 import { UserContext }  from '../State/UserState';
 
 const Home = () => {
-  const [user, setUser] = useContext(UserContext);
-  useEffect( () => {
-    setUser({
-      ... user,
-      username: "context STate username",
-    })
-  }, []);
+  const [user] = useContext(UserContext);
+  console.log(user);
   return (
     <div>
-      { user.username}
-      <ChatRoomList />
+      { user ?  <div> 
+                  <p> { user.username } </p> 
+                  <p> { user.password } </p>
+                  <p> { user.displayName} </p>
+                </div> 
+                : <div>Not Logged In</div>}
+      <ChatRoomList user ={ user } />
     </div>
   );
 }

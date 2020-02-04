@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import ChatRoom from './ChatRoom';
 import { getChatRoom } from '../Services/ChatRoomService';
 
-const ChatRoomList = () => {
+const ChatRoomList = (props) => {
+  const user = props.user;
   const initialState= [];
   const [chatrooms, setchatrooms] = useState(initialState);
 
@@ -12,7 +13,7 @@ const ChatRoomList = () => {
 
   return (
     <div>
-      {chatrooms ? chatrooms.map( (chatroom) => <ChatRoom key={chatroom.id} chatroom={chatroom}/>): <p> is Loading</p>}
+      {chatrooms ? chatrooms.map( (chatroom) => <ChatRoom key={chatroom.id} chatroom={chatroom} user={user}/>): <p> is Loading</p>}
     </div>
   );
 }
