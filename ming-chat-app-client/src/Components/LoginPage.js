@@ -35,7 +35,7 @@ const LoginPage = (props) => {
     <div>
       <form onSubmit={handleLogin}>
         <label>Username: <input type="text" required minLength="6" maxLength="12" name="username"></input></label><br/>
-        <label>Password: <input type="pasword" required minLength="6" maxLength="16" name="password"></input></label><br/>
+        <label>Password: <input type="password" required minLength="6" maxLength="16" name="password"></input></label><br/>
         <button>Login</button>
       </form>
     </div>

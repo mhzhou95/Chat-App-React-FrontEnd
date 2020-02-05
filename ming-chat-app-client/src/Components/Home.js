@@ -8,9 +8,7 @@ const Home = () => {
   return (
     <div>
       { user.authenticated ?  <div> 
-                  <p> { user.username } </p> 
-                  <p> { user.password } </p>
-                  <p> { user.displayName} </p>
+                  <p> Hi, { user.displayName } </p> 
                 </div> 
                 : <div>Not Logged In</div>}
       <ChatRoomList user ={ user } />

@@ -9,8 +9,8 @@ const ChatRoomList = (props) => {
 
   useEffect(() => {
     if(user.authenticated === true){
-    setInterval( ()=> { getChatRoom().then( data => setchatrooms(data)); 
-    }, 500)
+     setInterval( ()=> { getChatRoom().then( data => setchatrooms(data)); 
+     }, 500)
     }
   }, [setchatrooms, user.authenticated] );
 

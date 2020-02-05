@@ -19,7 +19,9 @@
 
 .chat-box{
   border: 1px solid;
-  overflow: scroll;
+  overflow: auto;
+  overflow-wrap: break-word;
   overflow-x: hidden;
+  height: 30vh;
 }
 

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-@RequestMapping(value = "/api/messages")
+@RequestMapping(value = "/message")
 @Controller
 public class MessageController {
     private MessageService messageService;
