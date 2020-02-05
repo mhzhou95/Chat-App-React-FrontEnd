@@ -8,10 +8,13 @@ const ChatRoomList = (props) => {
   const [chatrooms, setchatrooms] = useState(initialState);
 
   useEffect(() => {
-    getChatRoom().then( data => setchatrooms(data));
-  }, [chatrooms] );
+    if(user.authenticated === true){
+    setInterval( ()=> { getChatRoom().then( data => setchatrooms(data)); 
+    }, 500)
+    }
+  }, [setchatrooms, user.authenticated] );
 
-  return (
+    return (
     <div>
       {chatrooms ? chatrooms.map( (chatroom) => <ChatRoom key={chatroom.id} chatroom={chatroom} user={user}/>): <p> is Loading</p>}
     </div>

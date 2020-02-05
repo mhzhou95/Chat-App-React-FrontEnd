@@ -7,7 +7,7 @@ const Home = () => {
   console.log(user);
   return (
     <div>
-      { user ?  <div> 
+      { user.authenticated ?  <div> 
                   <p> { user.username } </p> 
                   <p> { user.password } </p>
                   <p> { user.displayName} </p>
