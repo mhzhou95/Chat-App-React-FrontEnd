@@ -2,16 +2,17 @@ import React, { useContext } from 'react';
 import ChatRoomList from './ChatRoomList';
 import { UserContext }  from '../State/UserState';
 
-const Home = () => {
+const Home = (props) => {
   const [user] = useContext(UserContext);
-  console.log(user);
   return (
     <div>
-      { user.authenticated ?  <div> 
-                  <p> Hi, { user.displayName } </p> 
-                </div> 
-                : <div>Not Logged In</div>}
-      <ChatRoomList user ={ user } />
+      <div className="header">
+        { user.authenticated ?  
+            <h4> Hi, { user.displayName } </h4>
+          : <h4>Not Logged In</h4>
+        }
+      </div>   
+     <ChatRoomList user = { user } chatRoomId={props.match.params.id}/>
     </div>
   );
 }

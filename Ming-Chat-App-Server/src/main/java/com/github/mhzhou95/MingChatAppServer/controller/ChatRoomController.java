@@ -3,7 +3,8 @@ package com.github.mhzhou95.MingChatAppServer.controller;
 import com.github.mhzhou95.MingChatAppServer.model.ChatRoom;
 import com.github.mhzhou95.MingChatAppServer.model.Message;
 import com.github.mhzhou95.MingChatAppServer.model.User;
-import com.github.mhzhou95.MingChatAppServer.service.ChatroomService;
+import com.github.mhzhou95.MingChatAppServer.service.ChatRoomService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,9 +15,10 @@ import java.util.Collection;
 @RequestMapping("/chatroom")
 @Controller
 public class ChatRoomController {
-    private ChatroomService chatroomService;
+    private ChatRoomService chatroomService;
 
-    public ChatRoomController(ChatroomService chatroomService){
+    @Autowired
+    public ChatRoomController(ChatRoomService chatroomService){
         this.chatroomService = chatroomService;
         ChatRoom chatroom = new ChatRoom();
         chatroom.setName("general");
@@ -26,7 +28,7 @@ public class ChatRoomController {
     @CrossOrigin
     @PostMapping("/")
     public ResponseEntity<?> createChatRoom(@RequestBody ChatRoom chatRoom){
-        ChatRoom chatroom = chatroomService.createChatroom(chatRoom);
+        ChatRoom chatroom = chatroomService.createChatRoom(chatRoom);
         ResponseEntity<?> responseCreate = new ResponseEntity<>(chatroom, HttpStatus.CREATED);
         return  responseCreate;
     }
@@ -35,14 +37,14 @@ public class ChatRoomController {
     @GetMapping("/")
     public ResponseEntity<?> findAll(){
             Collection<ChatRoom> chatRooms = chatroomService.findAll();
-            ResponseEntity<?> responeGetChatrooms = new ResponseEntity<>(chatRooms, HttpStatus.OK);
-            return responeGetChatrooms;
+            ResponseEntity<?> responeGetChatRooms = new ResponseEntity<>(chatRooms, HttpStatus.OK);
+            return responeGetChatRooms;
     }
 
     @CrossOrigin
     @GetMapping("/{id}")
     public ResponseEntity<?> getChatRoom(@PathVariable Long id){
-        ChatRoom chatRoom = chatroomService.getChatroom(id);
+        ChatRoom chatRoom = chatroomService.getChatRoom(id);
         ResponseEntity<?> responseGet = new ResponseEntity<>(chatRoom, HttpStatus.OK);
         return  responseGet;
     }

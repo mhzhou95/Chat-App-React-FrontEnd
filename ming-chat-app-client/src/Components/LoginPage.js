@@ -28,7 +28,7 @@ const LoginPage = (props) => {
     { 
       loginUser(userToLogin)
       .then( data => setUser(data))
-      .then(props.history.push("/"))
+      .then(props.history.push("/1"))
     }
   }, [userToLogin, props.history, setUser, user]);
   return (

@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Message from './Message';
 import { sendMessage } from '../Services/MessageService';
-import { addMessage } from '../Services/ChatRoomService';
+import { addMessage} from '../Services/ChatRoomService';
 
 const ChatRoom = (props) => {
-  const initialState = {
+  const initialStateMessage = {
     text: "",
     userId: "",
     userDisplayName: ""
   }
   const user = props.user;
-  const [ message, setMessage ] = useState(initialState)
+  const [ message, setMessage ] = useState(initialStateMessage)
 
   const messageSend = (event) => {
     event.preventDefault();
@@ -18,37 +18,31 @@ const ChatRoom = (props) => {
       ...message,
       text: event.target.message.value,
       userId: user.id,
-      userDisplayName: user.userDisplayName
+      userDisplayName: user.displayName
     })
     event.target.message.value = "";
-  
-    // // make scrollbar always start at bottom
     // setTimeout( ()=> {const messageBody = document.querySelector('.chat-box');
-    // messageBody.scrollTop = messageBody.scrollHeight; }, 750) 
+    // messageBody.scrollTop = messageBody.scrollHeight; }, 550) 
   }
 
   useEffect(() => {
       if( message.text.length > 0 && message.userId.length > 0 && user.authenticated){
       sendMessage(message)
       .then( data => addMessage(props.chatroom.id, data))
-      .then( setMessage(initialState))
+      .then( setMessage(initialStateMessage))
       }
-  }, [message, props, initialState, user.authenticated]);
-
-  useEffect(() => {
-    setTimeout( ()=> {const messageBody = document.querySelector('.chat-box');
-    messageBody.scrollTop = messageBody.scrollHeight; }, 750) 
-  }, [props]);
+      const messageBody = document.querySelector('.chat-box');
+      messageBody.scrollTop = messageBody.scrollHeight;
+  }, [message, props, initialStateMessage, user.authenticated]);
 
    return (
     <div>
-      <p>Chatroom id: {props.chatroom.id} </p>
-      <p>Chatroom name: {props.chatroom.name} </p>
+      <p>Chatroom: {props.chatroom.name} </p>
       <div className="chat-box">
         {props.chatroom.messages.map( (message) => <Message key={message.id} message ={message} />)}
       </div>
       <form onSubmit ={ messageSend }>
-        <input type="text" name="message"></input>
+        <input className="chat-message" type="text" name="message"></input>
         <button>Send</button>
       </form>
     </div>

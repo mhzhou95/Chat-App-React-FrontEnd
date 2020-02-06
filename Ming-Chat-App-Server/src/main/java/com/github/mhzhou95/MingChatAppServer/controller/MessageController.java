@@ -3,6 +3,7 @@ package com.github.mhzhou95.MingChatAppServer.controller;
 import com.github.mhzhou95.MingChatAppServer.model.Message;
 import com.github.mhzhou95.MingChatAppServer.model.User;
 import com.github.mhzhou95.MingChatAppServer.service.MessageService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import java.util.Collection;
 public class MessageController {
     private MessageService messageService;
 
+    @Autowired
     public MessageController(MessageService messageService){
         this.messageService= messageService;
     }

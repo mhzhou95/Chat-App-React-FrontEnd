@@ -23,5 +23,24 @@
   overflow-wrap: break-word;
   overflow-x: hidden;
   height: 30vh;
+  width: 55vw;
 }
 
+.chat-message{
+  width: 49vw;
+}
+.body{
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.header{
+  display: block;
+  text-align: center;
+}
+
+.sidebar{
+  margin-left: 5rem;  
+  margin-right: 5rem;
+}

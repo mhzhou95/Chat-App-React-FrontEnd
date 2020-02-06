@@ -15,17 +15,8 @@ public class Message {
     private File image;
     @NotEmpty
     private String userId;
-
-    public String getUserDisplayName() {
-        return userDisplayName;
-    }
-
-    public void setUserDisplayName(String userDisplayName) {
-        this.userDisplayName = userDisplayName;
-    }
-
+    @NotEmpty
     private String userDisplayName;
-
     private Long chatRoomId;
 
     public Message(){
@@ -65,6 +56,14 @@ public class Message {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getUserDisplayName() {
+        return userDisplayName;
+    }
+
+    public void setUserDisplayName(String userDisplayName) {
+        this.userDisplayName = userDisplayName;
     }
 
     public Long getChatRoomId() {
