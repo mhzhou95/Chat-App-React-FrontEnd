@@ -1,7 +1,5 @@
 package com.github.mhzhou95.MingChatAppServer.model;
 
-import org.hibernate.validator.constraints.UniqueElements;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.List;
@@ -12,6 +10,7 @@ public class ChatRoom {
     private Long id;
     @Column(unique = true) @NotEmpty
     private String name;
+    private String makerId;
     @OneToMany
     private List<User> users;
     @OneToMany(cascade = CascadeType.ALL)
@@ -30,6 +29,14 @@ public class ChatRoom {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getMakerId() {
+        return makerId;
+    }
+
+    public void setMakerId(String createrId) {
+        this.makerId = createrId;
     }
 
     public List<User> getUsers() {

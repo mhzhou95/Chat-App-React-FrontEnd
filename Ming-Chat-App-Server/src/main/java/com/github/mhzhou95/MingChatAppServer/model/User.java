@@ -3,6 +3,7 @@ package com.github.mhzhou95.MingChatAppServer.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotEmpty;
 import java.io.File;
 import java.util.UUID;

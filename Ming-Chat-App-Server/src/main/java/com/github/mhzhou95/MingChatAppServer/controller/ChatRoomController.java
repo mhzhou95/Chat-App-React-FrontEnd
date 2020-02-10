@@ -4,7 +4,6 @@ import com.github.mhzhou95.MingChatAppServer.model.ChatRoom;
 import com.github.mhzhou95.MingChatAppServer.model.Message;
 import com.github.mhzhou95.MingChatAppServer.model.User;
 import com.github.mhzhou95.MingChatAppServer.service.ChatRoomService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +22,7 @@ public class ChatRoomController {
         this.chatroomService = chatroomService;
         ChatRoom chatroom = new ChatRoom();
         chatroom.setName("general");
+        chatroom.setMakerId("admin");
         this.createChatRoom(chatroom);
     }
 
@@ -38,8 +38,8 @@ public class ChatRoomController {
     @GetMapping("/")
     public ResponseEntity<?> findAll(){
             Collection<ChatRoom> chatRooms = chatroomService.findAll();
-            ResponseEntity<?> responeGetChatRooms = new ResponseEntity<>(chatRooms, HttpStatus.OK);
-            return responeGetChatRooms;
+            ResponseEntity<?> responseGetChatRooms = new ResponseEntity<>(chatRooms, HttpStatus.OK);
+            return responseGetChatRooms;
     }
 
     @CrossOrigin
@@ -50,6 +50,21 @@ public class ChatRoomController {
         return  responseGet;
     }
 
+    @CrossOrigin
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteChatRoom(@PathVariable Long id, @RequestParam String userId){
+        ChatRoom chatroom = chatroomService.getChatRoom(id);
+        if(chatroom.getMakerId().equals(userId)) {
+            chatroomService.delete(id);
+            String deleted = "chatroom " + chatroom.getName() + " deleted";
+            ResponseEntity<?> responseDelete = new ResponseEntity<>(deleted, HttpStatus.OK);
+            return responseDelete;
+        }else {
+            String invalidRights = "You are not the creator of this chatroom " + userId;
+            ResponseEntity<?> responseDelete = new ResponseEntity<>(invalidRights, HttpStatus.OK);
+            return responseDelete;
+        }
+    }
     @CrossOrigin
     @PutMapping("/{id}")
     public ResponseEntity<?> editName(@PathVariable Long id, @RequestBody ChatRoom chatroom){

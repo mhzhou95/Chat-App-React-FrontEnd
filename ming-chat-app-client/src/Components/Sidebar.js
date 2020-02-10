@@ -1,19 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { createChatRoom } from '../Services/ChatRoomService';
+import { createChatRoom, deleteChatRoom } from '../Services/ChatRoomService';
 
 const Sidebar = (props) => {
-  const createNewChatRoom = () => {
-    let data = { name: ""}
+  const [ state, setState ] = useState({
+    id: "",
+    makerId: ""
+  });
+  const handleCreateChatRoom = () => {
+    let data = { 
+      name: "",
+      makerId: ""
+    }
     data.name = prompt("Create a new room (Has to be unique name)");
+    data.makerId = props.user.id;
     createChatRoom(data)
   }
+  const handleDeleteChatRoom = (event) => {
+    setState({
+      ...state,
+      id: event.target.value,
+      makerId: props.user.id
+    })
+  }
+
+  useEffect(() => {
+    if(state.id.length > 0 && state.makerId.length > 0){
+      deleteChatRoom(state.id, state.makerId)
+      setState({
+        id: "",
+        makerId: ""
+      })
+    }
+  }, [state]);
+
   return (
     <div className='sidebar'>
       <p>ChatRooms</p>
-      <button onClick={createNewChatRoom}>New ChatRoom</button>
+      <button onClick={ handleCreateChatRoom}>New ChatRoom</button>
       <ul>
-        { props.chatrooms.map( chatroom => <li key={chatroom.id}><NavLink to={`/${chatroom.id}`}>{chatroom.name}</NavLink></li> ) } 
+        { props.chatrooms.map( 
+          chatroom => 
+            <li key={chatroom.id}><NavLink to={`/${chatroom.id}`}>{chatroom.name}</NavLink>
+            <button onClick={ handleDeleteChatRoom } value={chatroom.id}>delete</button>
+            </li> 
+        ) } 
       </ul>
     </div>
   );
