@@ -14,7 +14,7 @@ public class ChatRoom {
     private String name;
     @OneToMany
     private List<User> users;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Message> messages;
 
     public ChatRoom() {
@@ -57,4 +57,9 @@ public class ChatRoom {
         messages.add(message);
         return message;
     };
+
+    public Message deleteMessage(Message message){
+        messages.remove(message);
+        return message;
+    }
 }

@@ -39,7 +39,7 @@ const ChatRoom = (props) => {
     <div>
       <p>Chatroom: {props.chatroom.name} </p>
       <div className="chat-box">
-        {props.chatroom.messages.map( (message) => <Message key={message.id} message ={message} />)}
+        {props.chatroom.messages.map( (message) => <Message key={message.id} message ={message} user={user}/>)}
       </div>
       <form onSubmit ={ messageSend }>
         <input className="chat-message" type="text" name="message"></input>

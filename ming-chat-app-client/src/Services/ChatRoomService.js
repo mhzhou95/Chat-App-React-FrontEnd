@@ -18,4 +18,8 @@ const addMessage = (id, message) => {
   return axios.post(`http://localhost:8080/chatroom/${id}/messages/`, message)
 }
 
-export { getChatRoom , addMessage, getCurrentChatRoom, createChatRoom};
+const deleteMessage = (id, mId) => {
+  return axios.delete(`http://localhost:8080/chatroom/${id}/messages/${mId}`)
+}
+
+export { getChatRoom , addMessage, deleteMessage, getCurrentChatRoom, createChatRoom};

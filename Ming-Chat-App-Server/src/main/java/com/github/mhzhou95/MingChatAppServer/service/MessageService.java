@@ -35,8 +35,8 @@ public class MessageService {
     }
 
     public Message deleteMessage(Long id) {
-        Message messageToDelete = getMessage(id);
-        messageRepository.delete(messageToDelete);
+        Message messageToDelete = messageRepository.findById(id).get();
+        messageRepository.deleteById(id);
         return messageToDelete;
     }
 

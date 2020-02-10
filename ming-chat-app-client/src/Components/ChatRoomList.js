@@ -23,7 +23,7 @@ const ChatRoomList = (props) => {
       getCurrentChatRoom(props.chatRoomId)
       .then( response => setChatRoom(response))
     }
-  }, [chatrooms, props.chatRoomId])
+  }, [chatrooms, props.chatRoomId, user.authenticated])
 
     return (
     <div className='body'>

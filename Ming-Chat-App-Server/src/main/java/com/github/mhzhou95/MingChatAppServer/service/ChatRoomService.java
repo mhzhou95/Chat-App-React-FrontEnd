@@ -75,4 +75,13 @@ public class ChatRoomService {
         chatroomRepository.save(chatRoomToUpdate);
         return chatRoomToUpdate;
     }
+
+    public Message deleteMessage(Long id, Long mId) {
+        ChatRoom chatRoom = getChatRoom(id);
+        Message message = messageService.getMessage(mId);
+        chatRoom.deleteMessage(message);
+        messageService.deleteMessage(mId);
+        chatroomRepository.save(chatRoom);
+        return message;
+    }
 }

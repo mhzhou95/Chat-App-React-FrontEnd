@@ -4,6 +4,7 @@ import com.github.mhzhou95.MingChatAppServer.model.ChatRoom;
 import com.github.mhzhou95.MingChatAppServer.model.Message;
 import com.github.mhzhou95.MingChatAppServer.model.User;
 import com.github.mhzhou95.MingChatAppServer.service.ChatRoomService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,5 +72,13 @@ public class ChatRoomController {
         Message messageToAdd = chatroomService.addMessage(id, message);
         ResponseEntity<?> responseAddMessage = new ResponseEntity<>(messageToAdd, HttpStatus.OK);
         return responseAddMessage;
+    }
+
+    @CrossOrigin
+    @DeleteMapping("/{id}/messages/{mId}")
+    public ResponseEntity<?> deleteMessage(@PathVariable Long id, @PathVariable Long mId){
+        Message message = chatroomService.deleteMessage(id, mId);
+        ResponseEntity<?> responseDeleteMessage = new ResponseEntity<>(message, HttpStatus.OK);
+        return responseDeleteMessage;
     }
 }

@@ -1,7 +1,6 @@
 package com.github.mhzhou95.MingChatAppServer.controller;
 
 import com.github.mhzhou95.MingChatAppServer.model.Message;
-import com.github.mhzhou95.MingChatAppServer.model.User;
 import com.github.mhzhou95.MingChatAppServer.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
