@@ -29,7 +29,7 @@ const ChatRoomList = (props) => {
     <div className='body'>
       { user.authenticated?  <Sidebar user={user} chatrooms={chatrooms} param={props}/> : <div></div>}
       {/* {chatrooms ? chatrooms.map( (chatroom) => <ChatRoom key={chatroom.id} chatroom={chatroom} user={user}/>): <p> is Loading</p>} */}
-      { chatroom.id ? <ChatRoom user={user} chatroom={chatroom} /> : <p>Loading ...</p>}
+      { chatroom.id && user.authenticated ? <ChatRoom user={user} chatroom={chatroom} /> : <p>Loading ...</p>}
     </div>
   );
 }

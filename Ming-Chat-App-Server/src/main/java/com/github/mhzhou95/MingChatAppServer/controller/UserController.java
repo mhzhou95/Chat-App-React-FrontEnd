@@ -31,8 +31,15 @@ public class UserController {
     @PostMapping("/")
     public ResponseEntity<?> createUser(@RequestBody User user){
         User newUser = userService.createUser(user);
-        ResponseEntity<?> responseCreate = new ResponseEntity<>( newUser, HttpStatus.CREATED);
-        return responseCreate;
+        if( newUser != null ){
+            ResponseEntity<?> responseCreate = new ResponseEntity<>( newUser, HttpStatus.CONFLICT);
+            return responseCreate;
+        }
+        else{
+            String error = "Username taken";
+            ResponseEntity<?> responseCreate = new ResponseEntity<>( error, HttpStatus.CONFLICT);
+            return responseCreate;
+        }
     }
 
     @CrossOrigin

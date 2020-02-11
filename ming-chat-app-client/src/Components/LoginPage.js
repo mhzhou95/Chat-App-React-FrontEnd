@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { loginUser } from '../Services/UserService';
 import { UserContext } from '../State/UserState';
+import { ErrorContext } from '../State/ErrorState';
 
 const LoginPage = (props) => {
   const initialState = {
@@ -12,6 +13,7 @@ const LoginPage = (props) => {
 
   const [userToLogin, setuserToLogin] = useState(initialState);
   const [user, setUser] = useContext(UserContext);
+  const [ error, setError] = useContext(ErrorContext);
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -28,11 +30,16 @@ const LoginPage = (props) => {
     { 
       loginUser(userToLogin)
       .then( data => setUser(data))
-      .then(props.history.push("/1"))
+      .then( props.history.push("/1"))
+      .catch( 
+        setError({message: "Login failed, invalid username or password" })
+      )
+      setTimeout(()=>{ setError({message: ""})}, 5000);
     }
-  }, [userToLogin, props.history, setUser, user]);
+  }, [userToLogin, props.history, setUser, user, setError]);
   return (
     <div>
+       { error.message.length > 0 ? <p>{error.message}</p>: <p></p>}
       <form onSubmit={handleLogin}>
         <label>Username: <input type="text" required minLength="6" maxLength="12" name="username"></input></label><br/>
         <label>Password: <input type="password" required minLength="6" maxLength="16" name="password"></input></label><br/>

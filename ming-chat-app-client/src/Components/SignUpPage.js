@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { createUser } from '../Services/UserService';
+import { ErrorContext } from '../State/ErrorState';
 
 const SignUpPage = (props) => {
   const initialState = {
@@ -8,7 +9,8 @@ const SignUpPage = (props) => {
     displayName: ""
   }
   const [user, setuser] = useState(initialState);
-  
+  const [, setError ] = useContext(ErrorContext);
+
   const handleSignUp = (event) => {
     event.preventDefault();
     setuser({
@@ -21,10 +23,12 @@ const SignUpPage = (props) => {
 
   useEffect(() => {
     if(user.username.length >= 6 && user.password.length >=6 && user.displayName.length > 0){
-      createUser(user)
-      props.history.push("/login")
+        createUser(user)
+        .then(props.history.push("/login"))
+        .catch( setError({ message: "Signup failed, username taken"}));
     }
-  }, [user, props.history ]);
+    setTimeout(()=>{ setError({message: ""})}, 5000);
+  }, [user, props.history, setError]);
 
   return (
     <div>
