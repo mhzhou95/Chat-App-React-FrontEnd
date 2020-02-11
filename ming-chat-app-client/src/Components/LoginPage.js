@@ -31,10 +31,8 @@ const LoginPage = (props) => {
       loginUser(userToLogin)
       .then( data => setUser(data))
       .then( props.history.push("/1"))
-      .catch( 
-        setError({message: "Login failed, invalid username or password" })
+      .catch( setError({message: "Login failed, invalid username or password" })
       )
-      setTimeout(()=>{ setError({message: ""})}, 5000);
     }
   }, [userToLogin, props.history, setUser, user, setError]);
   return (

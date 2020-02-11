@@ -1,11 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import ChatRoomList from './ChatRoomList';
 import { UserContext }  from '../State/UserState';
 import { ErrorContext } from '../State/ErrorState';
 
 const Home = (props) => {
   const [user] = useContext(UserContext);
-  const [ error,  ] = useContext(ErrorContext);
+  const [ error, setError] = useContext(ErrorContext);
+  
+  useEffect(()=>{
+    user.authenticated && setError({message: ""})
+  }, [setError, user])
   return (
     <div>
       <div className="header">

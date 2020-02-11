@@ -9,7 +9,7 @@ const SignUpPage = (props) => {
     displayName: ""
   }
   const [user, setuser] = useState(initialState);
-  const [, setError ] = useContext(ErrorContext);
+  const [ , setError ] = useContext(ErrorContext);
 
   const handleSignUp = (event) => {
     event.preventDefault();
@@ -25,9 +25,8 @@ const SignUpPage = (props) => {
     if(user.username.length >= 6 && user.password.length >=6 && user.displayName.length > 0){
         createUser(user)
         .then(props.history.push("/login"))
-        .catch( setError({ message: "Signup failed, username taken"}));
+        .catch( setError({ message: "Signup failed, username or display name taken"}));
     }
-    setTimeout(()=>{ setError({message: ""})}, 5000);
   }, [user, props.history, setError]);
 
   return (
