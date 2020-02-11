@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { createChatRoom, deleteChatRoom } from '../Services/ChatRoomService';
 
 const Sidebar = (props) => {
@@ -7,6 +7,8 @@ const Sidebar = (props) => {
     id: "",
     makerId: ""
   });
+
+  const history = useHistory();
   const handleCreateChatRoom = () => {
     let data = { 
       name: "",
@@ -23,7 +25,6 @@ const Sidebar = (props) => {
       makerId: props.user.id
     })
   }
-
   useEffect(() => {
     if(state.id.length > 0 && state.makerId.length > 0){
       deleteChatRoom(state.id, state.makerId)
@@ -31,8 +32,9 @@ const Sidebar = (props) => {
         id: "",
         makerId: ""
       })
+      history.push("/1");
     }
-  }, [state]);
+  }, [state, history]);
 
   return (
     <div className='sidebar'>
