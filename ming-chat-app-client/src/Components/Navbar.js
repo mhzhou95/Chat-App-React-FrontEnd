@@ -12,19 +12,22 @@ const Navbar = () => {
     })
   }
   return (
-    <nav>
-      { user.authenticated ? 
-        <ul>
-           <li><NavLink to = "/1" > Home </NavLink></li>
-          <li><NavLink to="/edit"> Account </NavLink></li>
-          <li><NavLink to="/1" onClick={handleLogout}>Logout</NavLink></li>
-        </ul>
-           :
-        <ul>
-          <li><NavLink to = "/register" > Register </NavLink></li>
-          <li><NavLink to= "/login" > Login </NavLink></li>
-        </ul>
-           }
+    <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div className="container-fluid">
+        { user.authenticated ? 
+          <ul className="navbar-nav">
+            <li className="nav-item-active"><NavLink className="nav-link"  to= "/1" > Home </NavLink></li>
+            <li className="nav-item-active"><NavLink className="nav-link" to="/edit"> Account </NavLink></li>
+            <li className="nav-item-active"><NavLink className="nav-link" to="/1" onClick={handleLogout}>Logout</NavLink></li>
+          </ul>
+            :
+          <ul className="nav navbar-nav">
+            <li className="nav-item-active"><NavLink className="nav-link" to = "/1" > Home </NavLink></li>
+            <li className="nav-item-active"><NavLink className="nav-link" to = "/register" > Register </NavLink></li>
+            <li className="nav-item-active"><NavLink className="nav-link" to= "/login" > Login </NavLink></li>
+          </ul>
+          }
+      </div>
     </nav>
   );
 }

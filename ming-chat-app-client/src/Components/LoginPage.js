@@ -39,9 +39,17 @@ const LoginPage = (props) => {
     <div>
        { error.message.length > 0 ? <p>{error.message}</p>: <p></p>}
       <form onSubmit={handleLogin}>
-        <label>Username: <input type="text" required minLength="6" maxLength="12" name="username"></input></label><br/>
-        <label>Password: <input type="password" required minLength="6" maxLength="16" name="password"></input></label><br/>
-        <button>Login</button>
+        <div className="form-group">
+        <label htmlFor="username"> Username: </label>
+        <input className="form-control" type="text" required minLength="6" maxLength="12" name="username"></input>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="password">Password:</label>
+          <input className="form-control" type="password" required minLength="6" maxLength="16" name="password"></input>
+        </div>
+
+        <button type="submit" className="btn btn-primary">Login</button>
       </form>
     </div>
   );

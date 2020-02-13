@@ -31,11 +31,24 @@ const SignUpPage = (props) => {
 
   return (
     <div>
+      <p></p>
       <form onSubmit={handleSignUp}>
-        <label>Username: <input type="text" required name="username" minLength="6" maxLength="12" placeholder="No spaces" ></input> </label><br/>
-        <label>Password:  <input type="password" required name="password" minLength="6" maxLength="16" placeholder="No spaces" ></input> </label><br/>
-        <label>Display Name: <input type="text" required name="displayName" maxLength="16" ></input></label><br/>
-        <button>Register</button>
+        <div className="form-group">
+          <label htmlFor="username">Username:</label>
+          <input className="form-control" type="text" required name="username" minLength="6" maxLength="12" placeholder="No spaces" ></input>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="password">Password:   </label>
+          <input className="form-control" type="password" required name="password" minLength="6" maxLength="16" placeholder="No spaces" ></input>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="displayName">Display Name: </label>
+          <input className="form-control" type="text" required name="displayName" maxLength="16" ></input>
+        </div>
+        
+        <button type="submit" className="btn btn-primary">Register</button>
       </form>
     </div>
   );

@@ -22,9 +22,17 @@ export default function EditUserPage() {
     return (
         <div>
             <form onSubmit={handleEdit} >
-                <p><input type="text" id="displayName" value={ user.displayName} onChange={handleChange} minLength="6" maxLength="12"></input></p>
-                <p><input type="password" id="password" value={ user.password } onChange={handleChange} minLength="6" maxLength="12"></input></p>
-                <button>Update</button>
+                <div className="form-group">
+                    <label htmlFor="displayName">DisplayName:</label>
+                    <input className="form-control" type="text" id="displayName" value={ user.displayName} onChange={handleChange} minLength="6" maxLength="12"></input>
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="password">Password:</label>
+                    <input className="form-control" type="password" id="password" value={ user.password } onChange={handleChange} minLength="6" maxLength="12"></input>
+                </div>
+           
+                <button type="submit" className="btn btn-warning">Update</button>
             </form>
         </div>
     )
