@@ -39,15 +39,17 @@ const Sidebar = (props) => {
   return (
     <div className='sidebar'>
       <p>ChatRooms</p>
-      <button onClick={ handleCreateChatRoom}>New ChatRoom</button>
-      <ul>
-        { props.chatrooms.map( 
-          chatroom => 
-            <li key={chatroom.id}><NavLink to={`/${chatroom.id}`}>{chatroom.name}</NavLink>
-            <button onClick={ handleDeleteChatRoom } value={chatroom.id}>delete</button>
-            </li> 
-        ) } 
-      </ul>
+      <button onClick={ handleCreateChatRoom} className="btn btn-outline-dark btn-sm">New ChatRoom</button>
+      <p></p>
+        <ul className="nav flex-column">
+          { props.chatrooms.map( 
+            chatroom => 
+                <li className="input-group mb-3 nav-item" key={chatroom.id}>
+                  <NavLink className="nav-link form-control" to={`/${chatroom.id}`}>{chatroom.name}</NavLink>
+                  <button onClick={ handleDeleteChatRoom } value={chatroom.id} className="btn btn-info btn-sm input-group-append">delete</button>
+                </li> 
+          ) } 
+        </ul>
     </div>
   );
 }

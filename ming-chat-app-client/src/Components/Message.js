@@ -7,11 +7,9 @@ const Message = (props) => {
   }
 
   return (
-    <div>
-    <p> 
-      {props.message.userDisplayName}: {props.message.text} 
-      {props.user.id === props.message.userId && <button onClick={handleDelete}>Delete</button>}
-    </p>
+    <div className="input-group mb-3 input-group-sm">
+    <p className="form-control">{props.message.userDisplayName}: {props.message.text} </p> 
+      {props.user.id === props.message.userId && <button className="btn btn-danger btn-sm input-group-append" type="button" onClick={handleDelete}>Delete</button>}
     </div>
   );
 }

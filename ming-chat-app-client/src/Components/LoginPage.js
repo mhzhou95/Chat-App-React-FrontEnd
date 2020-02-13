@@ -37,7 +37,7 @@ const LoginPage = (props) => {
   }, [userToLogin, props.history, setUser, user, setError]);
   return (
     <div>
-       { error.message.length > 0 ? <p>{error.message}</p>: <p></p>}
+       { error.message.length > 0 ? <p className="alert alert-danger">{error.message}</p>: <p></p>}
       <form onSubmit={handleLogin}>
         <div className="form-group">
         <label htmlFor="username"> Username: </label>

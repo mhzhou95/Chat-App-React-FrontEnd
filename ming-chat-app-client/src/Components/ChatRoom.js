@@ -36,14 +36,15 @@ const ChatRoom = (props) => {
   }, [message, props, initialStateMessage, user.authenticated]);
 
    return (
-    <div>
-      <p>Chatroom: {props.chatroom.name} </p>
-      <div className="chat-box">
+    <div className="card flex-grow-1">
+      <p className="card-header">Chatroom: {props.chatroom.name} </p>
+      <div className="chat-box card-body">
         {props.chatroom.messages.map( (message) => <Message key={message.id} message ={message} user={user}/>)}
       </div>
-      <form onSubmit ={ messageSend }>
-        <input className="chat-message" type="text" name="message"></input>
-        <button>Send</button>
+      <p></p>
+      <form className="input-group mb3" onSubmit ={ messageSend }>
+        <input className="chat-message form-control" type="text" name="message"></input>
+        <button type="button" className="btn btn-dark input-group-append">Send</button>
       </form>
     </div>
   );

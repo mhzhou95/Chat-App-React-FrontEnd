@@ -12,13 +12,13 @@ const Navbar = () => {
     })
   }
   return (
-    <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
-      <div className="container-fluid">
+    <nav className="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
+      <div>
         { user.authenticated ? 
-          <ul className="navbar-nav">
-            <li className="nav-item-active"><NavLink className="nav-link"  to= "/1" > Home </NavLink></li>
+          <ul className="nav navbar-nav">
+            <li className="nav-item-active"><NavLink className="nav-link" to= "/1"> Home </NavLink></li>
             <li className="nav-item-active"><NavLink className="nav-link" to="/edit"> Account </NavLink></li>
-            <li className="nav-item-active"><NavLink className="nav-link" to="/1" onClick={handleLogout}>Logout</NavLink></li>
+            <li className="nav-item-active"><NavLink className="nav-link" exact to="/" onClick={handleLogout}>Logout</NavLink></li>
           </ul>
             :
           <ul className="nav navbar-nav">

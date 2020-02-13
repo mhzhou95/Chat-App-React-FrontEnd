@@ -18,21 +18,21 @@
 }
 
 .chat-box{
-  border: 1px solid;
   overflow: auto;
   overflow-wrap: break-word;
   overflow-x: hidden;
-  height: 30vh;
-  width: 55vw;
+  height: 50vh;
+  width: 100%;
 }
 
 .chat-message{
-  width: 49vw;
+  width: 41vw;
 }
 .body{
   display:flex;
   flex-wrap: wrap;
   justify-content: flex-start;
+  margin-bottom: 2rem;
 }
 
 .header{
@@ -43,4 +43,8 @@
 .sidebar{
   margin-left: 5rem;  
   margin-right: 5rem;
+}
+
+.space-between{
+  justify-content: space-around;
 }

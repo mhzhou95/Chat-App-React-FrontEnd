@@ -13,7 +13,7 @@ const Home = (props) => {
   return (
     <div>
       <div className="header">
-      { error.message.length > 0 ? <p>{error.message}</p>: <p></p>}
+      { error.message.length > 0 ? <p className="alert alert-danger">{error.message}</p>: <p></p>}
         { user.authenticated ?  
             <h4> Hi, { user.displayName } </h4>
           : <h4>Not Logged In</h4>
