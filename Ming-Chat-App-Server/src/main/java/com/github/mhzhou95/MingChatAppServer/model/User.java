@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @Entity
 public class User {
-
     @Id
     private final String id = UUID.randomUUID().toString().replace("-", "");
     @Column(unique = true) @NotEmpty

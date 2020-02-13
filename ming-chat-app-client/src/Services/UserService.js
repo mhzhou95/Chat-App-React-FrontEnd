@@ -11,4 +11,10 @@ const loginUser = (userToLogin) => {
   .then( response => response.data)
   .then( data => data);
 }
-export { createUser, loginUser};
+
+const editUser = (id, user )=> {
+  return axios.put(`http://localhost:8080/user/${id}`, user)
+  .then( response => response.data)
+  .then( data => data);
+}
+export { createUser, loginUser, editUser};

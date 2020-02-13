@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { UserContext }  from '../State/UserState';
 
 const Navbar = () => {
-  const [ , setUser] = useContext(UserContext);
+  const [ user , setUser] = useContext(UserContext);
   const handleLogout = () =>{
     setUser({
       displayName: null,
@@ -13,14 +13,19 @@ const Navbar = () => {
   }
   return (
     <nav>
-      <ul>
-        <li><NavLink to = "/1" > Home </NavLink></li>
-        <li><NavLink to = "/register" > Register </NavLink></li>
-        <li><NavLink to= "/login" > Login </NavLink></li>
-        <li><NavLink to="/1" onClick={handleLogout}>Logout</NavLink></li>
-      </ul>
+      { user.authenticated ? 
+        <ul>
+           <li><NavLink to = "/1" > Home </NavLink></li>
+          <li><NavLink to="/edit"> Account </NavLink></li>
+          <li><NavLink to="/1" onClick={handleLogout}>Logout</NavLink></li>
+        </ul>
+           :
+        <ul>
+          <li><NavLink to = "/register" > Register </NavLink></li>
+          <li><NavLink to= "/login" > Login </NavLink></li>
+        </ul>
+           }
     </nav>
   );
 }
-
 export default Navbar;
