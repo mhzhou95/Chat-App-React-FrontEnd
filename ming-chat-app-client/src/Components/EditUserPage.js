@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../State/UserState';
-import { editUser } from '../Services/UserService';
+import { editUser, deleteUser } from '../Services/UserService';
 import { useHistory } from 'react-router-dom';
 
 export default function EditUserPage() {
@@ -13,6 +13,22 @@ export default function EditUserPage() {
         .then( data => setUser(data))
         .then( history.push("/"))
     }
+
+    const handleDelete = () => {
+        let doIt = window.confirm("Are you sure you want to delete your account?");
+        if( doIt ){
+            deleteUser(user.id)
+            .then( setUser({
+                displayName: null,
+                id: null,
+                authenticated: false
+              }))
+            .then( history.push("/"));
+        }else{
+            return;
+        }
+    }
+
     const handleChange = (event)=> {
         setUser({
             ...user,
@@ -34,6 +50,7 @@ export default function EditUserPage() {
            
                 <button type="submit" className="btn btn-warning">Update</button>
             </form>
+            <button type="submit" className="btn btn-danger" onClick={handleDelete}>Delete Account</button>
         </div>
     )
 }

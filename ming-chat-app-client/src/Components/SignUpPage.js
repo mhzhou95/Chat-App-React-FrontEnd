@@ -25,6 +25,8 @@ const SignUpPage = (props) => {
     if(user.username.length >= 6 && user.password.length >=6 && user.displayName.length > 0){
         createUser(user)
         .then(props.history.push("/login"))
+        .then( setError( { message: "" }))
+        // .catch( setError({ message: "username or display name already taken"}) );
     }
   }, [user, props.history, setError]);
 

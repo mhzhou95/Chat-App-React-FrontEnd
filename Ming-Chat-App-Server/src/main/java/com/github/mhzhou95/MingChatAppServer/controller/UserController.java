@@ -32,7 +32,7 @@ public class UserController {
     public ResponseEntity<?> createUser(@RequestBody User user){
         User newUser = userService.createUser(user);
         if( newUser != null ){
-            ResponseEntity<?> responseCreate = new ResponseEntity<>( newUser, HttpStatus.CONFLICT);
+            ResponseEntity<?> responseCreate = new ResponseEntity<>( newUser, HttpStatus.OK);
             return responseCreate;
         }
         else{

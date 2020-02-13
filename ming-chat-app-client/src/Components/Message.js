@@ -1,5 +1,6 @@
 import React from 'react';
 import { deleteMessage} from '../Services/ChatRoomService';
+import * as moment from 'moment';
 
 const Message = (props) => {
   const handleDelete = () => {
@@ -8,8 +9,15 @@ const Message = (props) => {
 
   return (
     <div className="input-group mb-3 input-group-sm">
-    <p className="form-control">{props.message.userDisplayName}: {props.message.text} </p> 
-      {props.user.id === props.message.userId && <button className="btn btn-danger btn-sm input-group-append" type="button" onClick={handleDelete}>Delete</button>}
+      <div className="input-group-prepend">
+        <span className="input-group-text">{props.message.userDisplayName}</span>
+      </div>
+  <p className="form-control">{props.message.text}</p> 
+      <div className="input-group-append">
+        <span className="input-group-text">{moment(props.message.time).format("h:mm a")}</span>
+        {props.user.id === props.message.userId && <button className="btn btn-danger btn-sm input-group" type="button" onClick={handleDelete}>x</button>}
+      </div>
+      
     </div>
   );
 }

@@ -17,4 +17,11 @@ const editUser = (id, user )=> {
   .then( response => response.data)
   .then( data => data);
 }
-export { createUser, loginUser, editUser};
+
+const deleteUser = (id) => {
+  return axios.delete(`http://localhost:8080/user/${id}`)
+  .then( response => response.data)
+  .then( data => data);
+}
+
+export { createUser, loginUser, editUser, deleteUser};
