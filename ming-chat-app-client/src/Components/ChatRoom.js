@@ -26,6 +26,7 @@ const ChatRoom = (props) => {
   }
 
   useEffect(() => {
+      const abortController = new AbortController();
       if( message.text.length > 0 && message.userId.length > 0 && user.authenticated){
       sendMessage(message)
       .then( data => addMessage(props.chatroom.id, data))
@@ -33,6 +34,10 @@ const ChatRoom = (props) => {
       }
       const messageBody = document.querySelector('.chat-box');
       messageBody.scrollTop = messageBody.scrollHeight;
+
+      return function cleanup(){
+        abortController.abort()
+      }
   }, [message, props, initialStateMessage, user.authenticated]);
 
    return (

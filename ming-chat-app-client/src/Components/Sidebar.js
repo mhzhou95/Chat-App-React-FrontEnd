@@ -46,7 +46,7 @@ const Sidebar = (props) => {
             chatroom => 
                 <li className="input-group mb-3 nav-item" key={chatroom.id}>
                   <NavLink className="nav-link form-control" to={`/${chatroom.id}`}>{chatroom.name}</NavLink>
-                  { props.user.id === chatroom.makerId ? <button onClick={ handleDeleteChatRoom } value={chatroom.id} className="btn btn-info btn-sm input-group-append">x</button>:<Fragment></Fragment>}
+                  { props.user.id === chatroom.makerId ? <button onClick={ handleDeleteChatRoom } value={chatroom.id} className="btn btn-info btn-sm input-group-append">X</button>:<Fragment></Fragment>}
                 </li> 
           ) } 
         </ul>

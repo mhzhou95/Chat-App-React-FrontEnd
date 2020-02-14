@@ -26,18 +26,23 @@ const LoginPage = (props) => {
   }
 
   useEffect(() => {
+    const abortController = new AbortController();
     if(userToLogin.username.length >= 6 && userToLogin.password.length >= 6)
     { 
       loginUser(userToLogin)
       .then( data => setUser(data))
       .then( props.history.push("/1"))
-      .catch( setError({message: "Login failed, invalid username or password" })
+      .catch( () => setError({message: "Login failed, invalid username or password", status: "danger" })
       )
+    }
+    return function cleanup(){
+      abortController.abort()
     }
   }, [userToLogin, props.history, setUser, user, setError]);
   return (
     <div>
-       { error.message.length > 0 ? <p className="alert alert-danger">{error.message}</p>: <p></p>}
+       { (error.status === "danger") && <p className="alert alert-danger">{error.message}</p>}
+       { (error.status === "success") && <p className="alert alert-success">{error.message}</p>} 
       <form onSubmit={handleLogin}>
         <div className="form-group">
         <label htmlFor="username"> Username: </label>

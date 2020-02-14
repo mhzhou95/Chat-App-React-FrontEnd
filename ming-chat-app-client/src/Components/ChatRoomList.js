@@ -10,18 +10,27 @@ const ChatRoomList = (props) => {
   const [chatroom, setChatRoom ] = useState({ id: null});
 
   useEffect(() => {
+    const abortController = new AbortController();
     if(user.authenticated === true){
       setInterval( ()=> {
         getChatRoom()
         .then( data => setchatrooms(data))
       }, 1000)
     };
+
+    return function cleanup(){
+      abortController.abort()
+    }
   }, [setchatrooms, user.authenticated, setChatRoom, props.chatRoomId] );
   
   useEffect( ()=> {
+    const abortController = new AbortController();
     if(user.authenticated === true){
       getCurrentChatRoom(props.chatRoomId)
       .then( response => setChatRoom(response))
+    }
+    return function cleanup(){
+      abortController.abort()
     }
   }, [chatrooms, props.chatRoomId, user.authenticated])
 

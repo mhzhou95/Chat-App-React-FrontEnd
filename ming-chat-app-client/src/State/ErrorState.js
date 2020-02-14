@@ -4,7 +4,8 @@ const ErrorContext = createContext();
 
 const ErrorProvider = (props) => {
   const [error, setError] = useState({
-    message: ""
+    message: "",
+    status: ""
   });
   return (
    <ErrorContext.Provider

@@ -18,7 +18,7 @@ const Navbar = () => {
           <ul className="nav navbar-nav">
             <li className="nav-item-active"><NavLink className="nav-link" to= "/1"> Home </NavLink></li>
             <li className="nav-item-active"><NavLink className="nav-link" to="/edit"> Account </NavLink></li>
-            <li className="nav-item-active"><NavLink className="nav-link" exact to="/" onClick={handleLogout}>Logout</NavLink></li>
+            <li className="nav-item-active"><NavLink className="nav-link" to="/login" onClick={handleLogout}>Logout</NavLink></li>
           </ul>
             :
           <ul className="nav navbar-nav">

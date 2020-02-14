@@ -15,7 +15,7 @@ const Message = (props) => {
   <p className="form-control">{props.message.text}</p> 
       <div className="input-group-append">
         <span className="input-group-text">{moment(props.message.time).format("h:mm a")}</span>
-        {props.user.id === props.message.userId && <button className="btn btn-danger btn-sm input-group" type="button" onClick={handleDelete}>x</button>}
+        {props.user.id === props.message.userId && <button className="btn btn-danger btn-sm input-group" type="button" onClick={handleDelete}>X</button>}
       </div>
       
     </div>

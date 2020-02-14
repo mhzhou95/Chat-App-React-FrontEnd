@@ -22,11 +22,15 @@ const SignUpPage = (props) => {
   }
 
   useEffect(() => {
+    const abortController = new AbortController();
     if(user.username.length >= 6 && user.password.length >=6 && user.displayName.length > 0){
         createUser(user)
         .then(props.history.push("/login"))
-        .then( setError( { message: "" }))
-        // .catch( setError({ message: "username or display name already taken"}) );
+        .then( () => setError( { message: "Account created", status: "success" }))
+        .catch( ()=> setError({ message: "Username or Display Name already taken", status: "danger"}) );
+    }
+    return function cleanup(){
+      abortController.abort()
     }
   }, [user, props.history, setError]);
 
