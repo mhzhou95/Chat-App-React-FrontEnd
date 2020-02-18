@@ -39,7 +39,9 @@ public class ChatRoomController {
     @GetMapping("/")
     public ResponseEntity<?> findAll(){
             Collection<ChatRoom> chatRooms = chatroomService.findAll();
-            chatRooms.forEach( chatRoom -> chatRoom.sortMessages());
+            for(ChatRoom chatroom : chatRooms){
+                chatroom.sortMessages();
+            }
             ResponseEntity<?> responseGetChatRooms = new ResponseEntity<>(chatRooms, HttpStatus.OK);
             return responseGetChatRooms;
     }
