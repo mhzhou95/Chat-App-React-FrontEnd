@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.stream.Stream;
 
@@ -39,10 +40,12 @@ public class ChatRoomController {
     @GetMapping("/")
     public ResponseEntity<?> findAll(){
             Collection<ChatRoom> chatRooms = chatroomService.findAll();
+            Collection<ChatRoom> sorted = new ArrayList<>();
             for(ChatRoom chatroom : chatRooms){
                 chatroom.sortMessages();
+                sorted.add(chatroom);
             }
-            ResponseEntity<?> responseGetChatRooms = new ResponseEntity<>(chatRooms, HttpStatus.OK);
+            ResponseEntity<?> responseGetChatRooms = new ResponseEntity<>(sorted, HttpStatus.OK);
             return responseGetChatRooms;
     }
 
