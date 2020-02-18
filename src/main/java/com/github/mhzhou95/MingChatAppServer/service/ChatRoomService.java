@@ -25,7 +25,7 @@ public class ChatRoomService {
 
     public ChatRoom getChatRoom(Long id) {
         ChatRoom chatRoom = chatroomRepository.findById(id).get();
-        chatRoom.sortMessages();
+//        chatRoom.sortMessages();
         return chatRoom;
     }
 
@@ -46,6 +46,7 @@ public class ChatRoomService {
 
     public Collection<ChatRoom> findAll() {
         Collection<ChatRoom> chatRooms = chatroomRepository.findAll();
+        chatRooms.forEach( chatRoom -> chatRoom.sortMessages());
         return chatRooms;
     }
 
