@@ -8,7 +8,6 @@ const ChatRoomList = (props) => {
   const initialState = [];
   const [chatrooms, setchatrooms] = useState(initialState);
   const [chatroom, setChatRoom ] = useState({ id: null});
-
   useEffect( ()=> {
     getChatRoom()
     .then( data => setchatrooms( data));
@@ -20,14 +19,14 @@ const ChatRoomList = (props) => {
       setInterval( ()=> {
         getChatRoom()
         .then( data => setchatrooms( ...chatrooms, data))
-      }, 500)
+      }, 1000)
     };
 
     return function cleanup(){
       abortController.abort()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setchatrooms, user.authenticated, setChatRoom, props.chatRoomId] );
+  }, [setchatrooms, user.authenticated, props.chatRoomId] );
   
   useEffect( ()=> {
     const abortController = new AbortController();
@@ -39,7 +38,7 @@ const ChatRoomList = (props) => {
       abortController.abort()
     }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chatrooms, props.chatRoomId, user.authenticated])
+  }, [chatrooms, props.chatRoomId])
 
     return (
     <div className='body'>

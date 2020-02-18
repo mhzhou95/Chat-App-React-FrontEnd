@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Message from './Message';
 import { sendMessage } from '../Services/MessageService';
 import { addMessage} from '../Services/ChatRoomService';
-import * as moment from 'moment';
 
 const ChatRoom = (props) => {
   const initialStateMessage = {
@@ -22,36 +21,32 @@ const ChatRoom = (props) => {
       userDisplayName: user.displayName
     })
     event.target.message.value = "";
-    // setTimeout( ()=> {const messageBody = document.querySelector('.chat-box');
-    // messageBody.scrollTop = messageBody.scrollHeight; }, 200); 
   }
 
-  useEffect( ()=> {
-    props.chatroom.messages.sort( (a,b) => {return moment(a.time).format("x")-moment(b.time).format("x")})
-  }, [])
+  // useEffect( ()=> {
+  //   props.chatroom.messages.sort( (a,b) => {return moment(a.time).format("x")-moment(b.time).format("x")})
+  // }, [])
 
   useEffect(() => {
       const abortController = new AbortController();
       if( message.text.length > 0 && message.userId.length > 0 && user.authenticated){
       sendMessage(message)
       .then( data => addMessage(props.chatroom.id, data))
-      .then( setMessage(initialStateMessage))
+      .then( ()=> setMessage(initialStateMessage))
       }
-      const messageBody = document.querySelector('.chat-box');
-      messageBody.scrollTop = messageBody.scrollHeight;
-
       return function cleanup(){
         abortController.abort()
       }
           // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [message, props, initialStateMessage, user.authenticated]);
+  }, [message]);
 
    return (
     <div className="card flex-grow-1">
       <p className="card-header">Chatroom: {props.chatroom.name} </p>
       <div className="chat-box card-body">
-        {/* { props.chatroom.messages.sort( (a,b) => {return moment(a.time).format("x")-moment(b.time).format("x")}) }  */}
-        { props.chatroom.messages.map( (message) => <Message key={message.id} message ={message} user={user}/> )} 
+        {
+        props.chatroom.messages.map( (message) => <Message key={message.id} message ={message} user={user}/> )
+        } 
       </div>
       <p></p>
       <form className="input-group mb3" onSubmit ={ messageSend }>
