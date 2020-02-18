@@ -25,7 +25,6 @@ public class ChatRoomService {
 
     public ChatRoom getChatRoom(Long id) {
         ChatRoom chatRoom = chatroomRepository.findById(id).get();
-//        chatRoom.sortMessages();
         return chatRoom;
     }
 
