@@ -63,6 +63,7 @@ public class ChatRoom {
 
     public Message addMessage(Message message) {
         messages.add(message);
+        sortMessages();
         return message;
     };
 
