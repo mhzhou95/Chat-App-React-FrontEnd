@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.stream.Stream;
 
 @Service
 public class ChatRoomService {
@@ -22,9 +23,9 @@ public class ChatRoomService {
         this.userService = userService;
     }
 
-
     public ChatRoom getChatRoom(Long id) {
         ChatRoom chatRoom = chatroomRepository.findById(id).get();
+        chatRoom.sortMessages();
         return chatRoom;
     }
 
