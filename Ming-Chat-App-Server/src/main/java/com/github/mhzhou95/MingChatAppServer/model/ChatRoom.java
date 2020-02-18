@@ -72,6 +72,6 @@ public class ChatRoom {
     }
 
     public void sortMessages(){
-        this.getMessages().sort(Comparator.comparingLong(a -> a.getTime().getTime()));
+        this.getMessages().sort(Comparator.comparingLong(a -> a.getId()));
     }
 }
