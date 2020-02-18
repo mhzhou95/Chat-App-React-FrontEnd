@@ -12,8 +12,8 @@ const Navbar = () => {
     })
   }
   return (
-    <nav className="navbar navbar-expand-sm bg-dark navbar-dark justify-content-center">
-      <div>
+    <nav className="navbar navbar-expand-sm bg-dark navbar-dark justify-content-between sticky-top">
+      <li className="navbar-brand">Chat App</li>
         { user.authenticated ? 
           <ul className="nav navbar-nav">
             <li className="nav-item-active"><NavLink className="nav-link" to= "/1"> Home </NavLink></li>
@@ -27,7 +27,6 @@ const Navbar = () => {
             <li className="nav-item-active"><NavLink className="nav-link" to= "/login" > Login </NavLink></li>
           </ul>
           }
-      </div>
     </nav>
   );
 }

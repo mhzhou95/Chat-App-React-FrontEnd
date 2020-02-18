@@ -44,6 +44,7 @@ const LoginPage = (props) => {
        { (error.status === "danger") && <p className="alert alert-danger">{error.message}</p>}
        { (error.status === "success") && <p className="alert alert-success">{error.message}</p>} 
       <form onSubmit={handleLogin}>
+        <p></p>
         <div className="form-group">
         <label htmlFor="username"> Username: </label>
         <input className="form-control" type="text" required minLength="6" maxLength="12" name="username"></input>

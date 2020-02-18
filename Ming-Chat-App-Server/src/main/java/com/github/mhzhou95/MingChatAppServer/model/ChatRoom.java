@@ -2,6 +2,7 @@ package com.github.mhzhou95.MingChatAppServer.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.Comparator;
 import java.util.List;
 
 @Entity
@@ -68,5 +69,9 @@ public class ChatRoom {
     public Message deleteMessage(Message message){
         messages.remove(message);
         return message;
+    }
+
+    public void sortMessages(){
+        this.getMessages().sort(Comparator.comparingLong(a -> a.getTime().getTime()));
     }
 }

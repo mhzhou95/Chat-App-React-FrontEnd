@@ -26,6 +26,7 @@ const Home = (props) => {
       <div className="header">
       { (error.status === "danger") && <p className="alert alert-danger">{error.message}</p>}
       { (error.status === "success") && <p className="alert alert-success">{error.message}</p>}
+      <p></p>
         { user.authenticated ?  
             <h4> Hi, { user.displayName } </h4>
           : <h4>Not Logged In</h4>

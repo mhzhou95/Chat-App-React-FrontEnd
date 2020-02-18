@@ -9,36 +9,43 @@ const ChatRoomList = (props) => {
   const [chatrooms, setchatrooms] = useState(initialState);
   const [chatroom, setChatRoom ] = useState({ id: null});
 
+  useEffect( ()=> {
+    getChatRoom()
+    .then( data => setchatrooms( data));
+  }, [])
+
   useEffect(() => {
     const abortController = new AbortController();
     if(user.authenticated === true){
       setInterval( ()=> {
         getChatRoom()
-        .then( data => setchatrooms(data))
-      }, 1000)
+        .then( data => setchatrooms( ...chatrooms, data))
+      }, 500)
     };
 
     return function cleanup(){
       abortController.abort()
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setchatrooms, user.authenticated, setChatRoom, props.chatRoomId] );
   
   useEffect( ()=> {
     const abortController = new AbortController();
     if(user.authenticated === true){
       getCurrentChatRoom(props.chatRoomId)
-      .then( response => setChatRoom(response))
+      .then( response => setChatRoom(response));
     }
     return function cleanup(){
       abortController.abort()
     }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chatrooms, props.chatRoomId, user.authenticated])
 
     return (
     <div className='body'>
       { user.authenticated?  <Sidebar user={user} chatrooms={chatrooms} param={props}/> : <div></div>}
       {/* {chatrooms ? chatrooms.map( (chatroom) => <ChatRoom key={chatroom.id} chatroom={chatroom} user={user}/>): <p> is Loading</p>} */}
-      { chatroom.id && user.authenticated ? <ChatRoom user={user} chatroom={chatroom} /> : <p>Loading ...</p>}
+      { chatroom.id && user.authenticated && chatrooms.length > 0 ? <ChatRoom user={user} chatroom={chatroom} /> : <p>Loading ...</p>}
     </div>
   );
 }
