@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.stream.Stream;
 
 @RequestMapping("/chatroom")
 @Controller
@@ -38,6 +39,7 @@ public class ChatRoomController {
     @GetMapping("/")
     public ResponseEntity<?> findAll(){
             Collection<ChatRoom> chatRooms = chatroomService.findAll();
+            chatRooms.forEach( chatRoom -> chatRoom.sortMessages());
             ResponseEntity<?> responseGetChatRooms = new ResponseEntity<>(chatRooms, HttpStatus.OK);
             return responseGetChatRooms;
     }
