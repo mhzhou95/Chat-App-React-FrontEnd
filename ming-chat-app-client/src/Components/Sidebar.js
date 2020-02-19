@@ -42,7 +42,7 @@ const Sidebar = (props) => {
       <button onClick={ handleCreateChatRoom} className="btn btn-outline-dark btn-sm">New ChatRoom</button>
       <p></p>
         <ul className="nav flex-column">
-          { props.chatrooms.map( 
+          { props.chatrooms && props.chatrooms.map( 
             chatroom => 
                 <li className="input-group mb-3 nav-item" key={chatroom.id}>
                   <NavLink className="nav-link form-control" to={`/${chatroom.id}`}>{chatroom.name}</NavLink>

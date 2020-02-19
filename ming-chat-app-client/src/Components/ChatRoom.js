@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Message from './Message';
 import { sendMessage } from '../Services/MessageService';
 import { addMessage} from '../Services/ChatRoomService';
+import $ from 'jquery';
 
 const ChatRoom = (props) => {
   const initialStateMessage = {
@@ -10,12 +11,30 @@ const ChatRoom = (props) => {
     userDisplayName: ""
   }
   const user = props.user;
-  const [ message, setMessage ] = useState(initialStateMessage)
+  const [ message, setMessage ] = useState(initialStateMessage);
+
+  let checkbottom;
+  $(function() {
+  $('.chat-box').on('scroll', function() {
+      var check = $(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight;
+      if(check) {
+        checkbottom = "bottom";
+      }
+      else {
+      checkbottom = "nobottom";
+      }
+  })
+  });
+  window.setInterval(function(){
+  if (checkbottom === "bottom") {
+  var objDiv = document.getElementById("chat_con");
+  objDiv.scrollTop = objDiv.scrollHeight;
+  }
+  }, 500);
 
   const messageSend = (event) => {
     event.preventDefault();
     setMessage( {
-      ...message,
       text: event.target.message.value,
       userId: user.id,
       userDisplayName: user.displayName
@@ -43,15 +62,15 @@ const ChatRoom = (props) => {
    return (
     <div className="card flex-grow-1">
       <p className="card-header">Chatroom: {props.chatroom.name} </p>
-      <div className="chat-box card-body">
+      <div className="chat-box card-body" id="chat_con">
         {
-        props.chatroom.messages.map( (message) => <Message key={message.id} message ={message} user={user}/> )
+         props.chatroom.messages.map( (message) => <Message key={message.id} message ={message} user={user}/> )
         } 
       </div>
       <p></p>
       <form className="input-group mb3" onSubmit ={ messageSend }>
         <input className="chat-message form-control" type="text" name="message"></input>
-        <button type="button" className="btn btn-dark input-group-append">Send</button>
+        <button type="submit" className="btn btn-dark input-group-append">Send</button>
       </form>
     </div>
   );
