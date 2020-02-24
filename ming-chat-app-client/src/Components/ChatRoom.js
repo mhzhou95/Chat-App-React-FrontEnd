@@ -42,17 +42,11 @@ const ChatRoom = (props) => {
   }, 500);
 
   useEffect(()=>{
-    let isCancelled = false;
-    if(!isCancelled){
       setInterval(()=>{
         getAllMessages(props.chatRoomId)
         .then(data => setMessageList(data));
       }, 500)
-    }
-    return () => {
-      isCancelled = true;
-    };
-  }, [props.chatRoomId, chatRoom])
+  }, [props.chatRoomId])
  
   useEffect(()=> {
     let isCancelled = false;
