@@ -14,31 +14,17 @@ const ChatRoomList = (props) => {
   }, [])
   
   useEffect(() => {
-    const abortController = new AbortController();
       setInterval( ()=> {
         getChatRoom()
         .then( data => setchatrooms(data))
       }, 500)
-    return function cleanup(){
-      abortController.abort()
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getChatRoom]);
+  }, [props.chatRoomId]);
   
-  // useEffect( ()=> {
-  //   const abortController = new AbortController();
-  //         getCurrentChatRoom(props.chatRoomId)
-  //         .then( response => setChatRoom( response));
-  //   return function cleanup(){
-  //     abortController.abort()
-  //   }
-  //       // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [props.chatRoomId, setChatRoom, getCurrentChatRoom])
-
     return (
     <div className='body'>
       { user.authenticated?  <Sidebar user={user} chatrooms={chatrooms} param={props}/> : <div></div>}
-      { props.chatRoomId && user.authenticated && chatrooms.length > 0 ? <ChatRoom user={user} chatRoomId={props.chatRoomId} key={props.chatRoomId} /> : <p>Loading ...</p>}
+      { props.chatRoomId && user.authenticated ? <ChatRoom user={user} chatRoomId={props.chatRoomId} key={props.chatRoomId} /> : <p>Loading ...</p>}
     </div>
   );
 }

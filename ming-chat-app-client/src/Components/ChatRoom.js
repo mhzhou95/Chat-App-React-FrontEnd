@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Message from './Message';
 import { sendMessage, getAllMessages } from '../Services/MessageService';
 import { addMessage} from '../Services/ChatRoomService';
-import { getChatRoom } from '../Services/ChatRoomService';
+import { getCurrentChatRoom } from '../Services/ChatRoomService';
 import $ from 'jquery';
 
 const ChatRoom = (props) => {
@@ -11,8 +11,14 @@ const ChatRoom = (props) => {
     userId: "",
     userDisplayName: ""
   }
+
+  const initialStateChatRoom = {
+    id: "",
+    name: "",
+    makerId: ""
+  }
   const user = props.user;
-  const [ chatRoom ] = getChatRoom(props.chatRoomId);
+  const [ chatRoom, setChatRoom ] = useState(initialStateChatRoom);
   const [ message, setMessage ] = useState(initialStateMessage);
   const [ messageList, setMessageList] = useState(getAllMessages(props.chatRoomId));
 
@@ -36,13 +42,28 @@ const ChatRoom = (props) => {
   }, 500);
 
   useEffect(()=>{
-    setInterval(()=>{
-      getAllMessages(props.chatRoomId)
-      .then(data => console.log(data));
-
-      console.log(chatRoom)
-    }, 500)
-  }, [])
+    let isCancelled = false;
+    if(!isCancelled){
+      setInterval(()=>{
+        getAllMessages(props.chatRoomId)
+        .then(data => setMessageList(data));
+      }, 500)
+    }
+    return () => {
+      isCancelled = true;
+    };
+  }, [props.chatRoomId, chatRoom])
+ 
+  useEffect(()=> {
+    let isCancelled = false;
+    if(!isCancelled){
+    getCurrentChatRoom(props.chatRoomId)
+    .then(data => setChatRoom(data))
+    }
+    return () => {
+      isCancelled = true;
+    };
+  }, [props.chatRoomId])
   
   const messageSend = (event) => {
     event.preventDefault();
@@ -55,21 +76,23 @@ const ChatRoom = (props) => {
   }
 
   useEffect(() => {
-      const abortController = new AbortController();
-      if( message.text.length > 0 && message.userId.length > 0 && user.authenticated){
-      sendMessage(message)
-      .then( data => addMessage(props.chatRoomId, data))
-      .then( ()=> setMessage(initialStateMessage))
+      let isCancelled = false;
+      if(!isCancelled){
+        if( message.text.length > 0 && message.userId.length > 0 && user.authenticated){
+        sendMessage(message)
+        .then( data => addMessage(props.chatRoomId, data))
+        .then( ()=> setMessage(initialStateMessage))
+        }
       }
-      return function cleanup(){
-        abortController.abort()
-      }
-          // eslint-disable-next-line react-hooks/exhaustive-deps
+      return () => {
+        isCancelled = true;
+      };
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [message]);
 
    return (
-     <div>
-       { chatRoom.name?  <div className="card flex-grow-1">
+    
+       <div className="card flex-grow-1">
         <p className="card-header">Chatroom: {chatRoom.name} </p>
         <div className="chat-box card-body" id="chat_con">
           {
@@ -81,8 +104,8 @@ const ChatRoom = (props) => {
           <input className="chat-message form-control" type="text" name="message"></input>
           <button type="submit" className="btn btn-dark input-group-append">Send</button>
         </form>
-      </div> : <div>ChatRoom Loading...</div>}
-    </div>
+      </div>
+   
   );
 }
 

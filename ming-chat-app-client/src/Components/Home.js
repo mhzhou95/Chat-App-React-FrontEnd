@@ -6,6 +6,7 @@ import { ErrorContext } from '../State/ErrorState';
 const Home = (props) => {
   const [user, setUser] = useContext(UserContext);
   const [ error, setError] = useContext(ErrorContext);
+  
   useEffect( ()=>{
     const abortController = new AbortController();
     user.authenticated && setError({message: "", status: ""})
@@ -21,7 +22,7 @@ const Home = (props) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setUser])
-
+  
   return (
     <div>
       <div className="header">
@@ -33,7 +34,9 @@ const Home = (props) => {
           : <h4>Not Logged In</h4>
         }
       </div>   
-     <ChatRoomList user = { user } chatRoomId={props.match.params.id}/>
+     {
+        user.authenticated && <ChatRoomList user = { user } chatRoomId={props.match.params.id}/>
+     }
     </div>
   );
 }
