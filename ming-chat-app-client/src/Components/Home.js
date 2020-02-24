@@ -20,7 +20,8 @@ const Home = (props) => {
       abortController.abort()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setUser]) 
+  }, [setUser])
+
   return (
     <div>
       <div className="header">

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Message from './Message';
-import { sendMessage } from '../Services/MessageService';
+import { sendMessage, getAllMessages } from '../Services/MessageService';
 import { addMessage} from '../Services/ChatRoomService';
+import { getChatRoom } from '../Services/ChatRoomService';
 import $ from 'jquery';
 
 const ChatRoom = (props) => {
@@ -11,7 +12,9 @@ const ChatRoom = (props) => {
     userDisplayName: ""
   }
   const user = props.user;
+  const [ chatRoom ] = getChatRoom(props.chatRoomId);
   const [ message, setMessage ] = useState(initialStateMessage);
+  const [ messageList, setMessageList] = useState(getAllMessages(props.chatRoomId));
 
   let checkbottom;
   $(function() {
@@ -32,6 +35,13 @@ const ChatRoom = (props) => {
   }
   }, 500);
 
+  // useEffect(()=>{
+  //   setInterval(()=>{
+  //     getAllMessages(props.chatRoomId)
+  //     .then(data => setMessageList(data));
+  //   }, 500)
+  // }, [])
+  
   const messageSend = (event) => {
     event.preventDefault();
     setMessage( {
@@ -42,15 +52,11 @@ const ChatRoom = (props) => {
     event.target.message.value = "";
   }
 
-  // useEffect( ()=> {
-  //   props.chatroom.messages.sort( (a,b) => {return moment(a.time).format("x")-moment(b.time).format("x")})
-  // }, [])
-
   useEffect(() => {
       const abortController = new AbortController();
       if( message.text.length > 0 && message.userId.length > 0 && user.authenticated){
       sendMessage(message)
-      .then( data => addMessage(props.chatroom.id, data))
+      .then( data => addMessage(props.chatRoomId, data))
       .then( ()=> setMessage(initialStateMessage))
       }
       return function cleanup(){
@@ -61,10 +67,10 @@ const ChatRoom = (props) => {
 
    return (
     <div className="card flex-grow-1">
-      <p className="card-header">Chatroom: {props.chatroom.name} </p>
+      <p className="card-header">Chatroom: {chatRoom.name} </p>
       <div className="chat-box card-body" id="chat_con">
         {
-         props.chatroom.messages.map( (message) => <Message key={message.id} message ={message} user={user}/> )
+         messageList.length > 0  && messageList.map( (message) => <Message key={message.id} message ={message} user={user}/>)
         } 
       </div>
       <p></p>
