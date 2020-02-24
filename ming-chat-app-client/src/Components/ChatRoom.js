@@ -35,12 +35,14 @@ const ChatRoom = (props) => {
   }
   }, 500);
 
-  // useEffect(()=>{
-  //   setInterval(()=>{
-  //     getAllMessages(props.chatRoomId)
-  //     .then(data => setMessageList(data));
-  //   }, 500)
-  // }, [])
+  useEffect(()=>{
+    setInterval(()=>{
+      getAllMessages(props.chatRoomId)
+      .then(data => console.log(data));
+
+      console.log(chatRoom)
+    }, 500)
+  }, [])
   
   const messageSend = (event) => {
     event.preventDefault();
@@ -66,18 +68,20 @@ const ChatRoom = (props) => {
   }, [message]);
 
    return (
-    <div className="card flex-grow-1">
-      <p className="card-header">Chatroom: {chatRoom.name} </p>
-      <div className="chat-box card-body" id="chat_con">
-        {
-         messageList.length > 0  && messageList.map( (message) => <Message key={message.id} message ={message} user={user}/>)
-        } 
-      </div>
-      <p></p>
-      <form className="input-group mb3" onSubmit ={ messageSend }>
-        <input className="chat-message form-control" type="text" name="message"></input>
-        <button type="submit" className="btn btn-dark input-group-append">Send</button>
-      </form>
+     <div>
+       { chatRoom.name?  <div className="card flex-grow-1">
+        <p className="card-header">Chatroom: {chatRoom.name} </p>
+        <div className="chat-box card-body" id="chat_con">
+          {
+            messageList.length > 0  && messageList.map( (message) => <Message key={message.id} message ={message} user={user}/>)
+          } 
+        </div>
+        <p></p>
+        <form className="input-group mb3" onSubmit ={ messageSend }>
+          <input className="chat-message form-control" type="text" name="message"></input>
+          <button type="submit" className="btn btn-dark input-group-append">Send</button>
+        </form>
+      </div> : <div>ChatRoom Loading...</div>}
     </div>
   );
 }
