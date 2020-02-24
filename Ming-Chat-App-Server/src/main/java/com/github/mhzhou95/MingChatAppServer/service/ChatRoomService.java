@@ -51,7 +51,7 @@ public class ChatRoomService {
 
     public User addUser(Long id, User user) {
         ChatRoom chatRoom = getChatRoom(id);
-        user.setChatRoomId(id);
+        user.setChatRoom(chatRoom);
         String tempId = user.getId();
         userService.editUser(user.getId(), user);
         User newUser = userService.findUser(tempId);
@@ -62,7 +62,7 @@ public class ChatRoomService {
 
     public Message addMessage(Long id, Message message){
         ChatRoom chatRoom = getChatRoom(id);
-        message.setChatRoomId(id);
+        message.setChatRoom(chatRoom);
         Long tempId = message.getId();
         messageService.editMessage(message.getId(), message);
         Message newMessage = messageService.getMessage(tempId);

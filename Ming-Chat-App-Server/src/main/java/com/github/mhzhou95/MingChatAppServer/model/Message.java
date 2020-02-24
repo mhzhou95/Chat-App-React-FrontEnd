@@ -17,7 +17,16 @@ public class Message {
     private String userId;
     @NotEmpty
     private String userDisplayName;
-    private Long chatRoomId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ChatRoom chatRoom;
+
+    public ChatRoom getChatRoom() {
+        return chatRoom;
+    }
+
+    public void setChatRoom(ChatRoom chatRoom) {
+        this.chatRoom = chatRoom;
+    }
 
     public Message(){
     }
@@ -66,11 +75,4 @@ public class Message {
         this.userDisplayName = userDisplayName;
     }
 
-    public Long getChatRoomId() {
-        return chatRoomId;
-    }
-
-    public void setChatRoomId(Long chatRoomId) {
-        this.chatRoomId = chatRoomId;
-    }
 }

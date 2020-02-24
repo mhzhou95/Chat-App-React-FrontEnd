@@ -2,8 +2,7 @@ package com.github.mhzhou95.MingChatAppServer.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Entity
 public class ChatRoom {
@@ -12,10 +11,10 @@ public class ChatRoom {
     @Column(unique = true) @NotEmpty
     private String name;
     private String makerId;
-    @OneToMany
-    private List<User> users;
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<Message> messages;
+    @OneToMany( cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<User> users = new HashSet<>();
+    @OneToMany( cascade = CascadeType.ALL)
+    private List<Message> messages = new LinkedList<>();
 
     public ChatRoom() {
     }
@@ -40,11 +39,11 @@ public class ChatRoom {
         this.makerId = createrId;
     }
 
-    public List<User> getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(Set<User> users) {
         this.users = users;
     }
 

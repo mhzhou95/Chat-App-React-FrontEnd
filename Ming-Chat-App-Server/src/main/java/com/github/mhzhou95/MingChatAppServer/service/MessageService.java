@@ -43,7 +43,7 @@ public class MessageService {
     public Message editMessage(Long id, Message message) {
         Message messageToEdit = getMessage(id);
         messageToEdit.setText(message.getText());
-        messageToEdit.setChatRoomId(message.getChatRoomId());
+        messageToEdit.setChatRoom(message.getChatRoom());
         messageRepository.save(messageToEdit);
         return messageToEdit;
     }

@@ -1,9 +1,6 @@
 package com.github.mhzhou95.MingChatAppServer.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.File;
 import java.util.UUID;
@@ -19,19 +16,20 @@ public class User {
     @Column(unique = true) @NotEmpty
     private String displayName;
     private File image = null;
-    private Long chatRoomId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ChatRoom chatRoom;
     private boolean authenticated = true;
 
     public boolean isAuthenticated() {
         return authenticated;
     }
 
-    public Long getChatRoomId() {
-        return chatRoomId;
+    public ChatRoom getChatRoom() {
+        return chatRoom;
     }
 
-    public void setChatRoomId(Long chatRoomId) {
-        this.chatRoomId = chatRoomId;
+    public void setChatRoom(ChatRoom chatRoom) {
+        this.chatRoom = chatRoom;
     }
 
     public User() {

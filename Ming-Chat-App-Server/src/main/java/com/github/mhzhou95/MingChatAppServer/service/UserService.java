@@ -51,7 +51,7 @@ public class UserService{
         userToUpdate.setUsername(user.getUsername());
         userToUpdate.setDisplayName(user.getDisplayName());
         userToUpdate.setPassword(user.getPassword());
-        userToUpdate.setChatRoomId(user.getChatRoomId());
+        userToUpdate.setChatRoom(user.getChatRoom());
         userRepository.save(userToUpdate);
         return  userToUpdate;
     }
