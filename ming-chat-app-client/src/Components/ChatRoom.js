@@ -70,17 +70,11 @@ const ChatRoom = (props) => {
   }
 
   useEffect(() => {
-      let isCancelled = false;
-      if(!isCancelled){
-        if( message.text.length > 0 && message.userId.length > 0 && user.authenticated){
-        sendMessage(message)
-        .then( data => addMessage(props.chatRoomId, data))
-        .then( ()=> setMessage(initialStateMessage))
-        }
+      if( message.text.length > 0 && message.userId.length > 0 && user.authenticated){
+      sendMessage(message)
+      .then( data => addMessage(props.chatRoomId, data))
+      .then( ()=> setMessage(initialStateMessage))
       }
-      return () => {
-        isCancelled = true;
-      };
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [message]);
 
