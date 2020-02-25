@@ -21,25 +21,27 @@ const ChatRoom = (props) => {
   const [ message, setMessage ] = useState(initialStateMessage);
   const [ messageList, setMessageList] = useState(getAllMessages(props.chatRoomId));
 
-  let checkbottom;
-  $(function() {
-  $('.chat-box').on('scroll', function() {
-      var check = $(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight;
-      if(check) {
-        checkbottom = "bottom";
-      }
-      else {
-      checkbottom = "nobottom";
-      }
-  })
-  });
-  window.setInterval(function(){
-  if (checkbottom === "bottom") {
-  var objDiv = document.getElementById("chat_con");
-  objDiv.scrollTop = objDiv.scrollHeight;
+  if( user.authenticated){
+    let checkbottom;
+    $(function() {
+    $('.chat-box').on('scroll', function() {
+        var check = $(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight;
+        if(check) {
+          checkbottom = "bottom";
+        }
+        else {
+        checkbottom = "nobottom";
+        }
+    })
+    });
+    window.setInterval(function(){
+    if (checkbottom === "bottom") {
+    var objDiv = document.getElementById("chat_con");
+    objDiv.scrollTop = objDiv.scrollHeight;
+    }
+    }, 500);
   }
-  }, 500);
-
+  
   useEffect(()=>{
     let mounted = true;
       setInterval(()=>{
