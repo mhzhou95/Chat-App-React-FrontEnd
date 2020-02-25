@@ -55,6 +55,7 @@ const ChatRoom = (props) => {
   const messageSend = (event) => {
     event.preventDefault();
     setMessage( {
+      send : true,
       text: event.target.message.value,
       userId: user.id,
       userDisplayName: user.displayName
@@ -63,7 +64,7 @@ const ChatRoom = (props) => {
   }
 
   useEffect(() => {
-      if( message.text.length > 0 && message.userId.length > 0 && user.authenticated){
+      if( message.text.length >=1 && message.userId.length >=1){
         createMessage( chatRoom.id, message)
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps

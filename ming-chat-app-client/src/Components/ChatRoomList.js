@@ -17,9 +17,9 @@ const ChatRoomList = (props) => {
       setInterval( ()=> {
         getChatRoom()
         .then( data => setchatrooms(data))
-      }, 500)
+      }, 10000)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.chatRoomId]);
+  }, []);
   
     return (
     <div className='body'>
