@@ -45,7 +45,7 @@ const ChatRoom = (props) => {
         getAllMessages(props.chatRoomId)
         .then(data => setMessageList(data));
       }, 500)
-  }, [chatRoom])
+  }, [props.chatRoomId])
  
   useEffect(()=> {
     getCurrentChatRoom(props.chatRoomId)
