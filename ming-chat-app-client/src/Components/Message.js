@@ -1,10 +1,10 @@
 import React from 'react';
-import { deleteMessage} from '../Services/ChatRoomService';
+import { deleteMessage } from '../Services/MessageService';
 import * as moment from 'moment';
 
 const Message = (props) => {
   const handleDelete = () => {
-    deleteMessage(props.message.chatRoomId, props.message.id)
+    deleteMessage(props.message.id)
   }
 
   return (

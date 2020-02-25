@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Message from './Message';
-import { sendMessage, getAllMessages } from '../Services/MessageService';
-import { addMessage} from '../Services/ChatRoomService';
+import { getAllMessages, createMessage } from '../Services/MessageService';
 import { getCurrentChatRoom } from '../Services/ChatRoomService';
 import $ from 'jquery';
 
@@ -46,18 +45,12 @@ const ChatRoom = (props) => {
         getAllMessages(props.chatRoomId)
         .then(data => setMessageList(data));
       }, 500)
-  }, [props.chatRoomId])
+  }, [chatRoom])
  
   useEffect(()=> {
-    let isCancelled = false;
-    if(!isCancelled){
     getCurrentChatRoom(props.chatRoomId)
     .then(data => setChatRoom(data))
-    }
-    return () => {
-      isCancelled = true;
-    };
-  }, [props.chatRoomId])
+  }, [props])
   
   const messageSend = (event) => {
     event.preventDefault();
@@ -71,9 +64,7 @@ const ChatRoom = (props) => {
 
   useEffect(() => {
       if( message.text.length > 0 && message.userId.length > 0 && user.authenticated){
-      sendMessage(message)
-      .then( data => addMessage(props.chatRoomId, data))
-      .then( ()=> setMessage(initialStateMessage))
+        createMessage( chatRoom.id, message)
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [message]);

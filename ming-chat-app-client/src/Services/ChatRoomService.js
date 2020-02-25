@@ -18,12 +18,5 @@ const deleteChatRoom = (id, makerId) => {
   return axios.delete(`https://ming-chat-app-api.herokuapp.com/chatroom/${id}`, { params:{ userId: makerId}})
 }
 
-const addMessage = (id, message) => {
-  return axios.post(`https://ming-chat-app-api.herokuapp.com/chatroom/${id}/messages/`, message)
-}
 
-const deleteMessage = (id, mId) => {
-  return axios.delete(`https://ming-chat-app-api.herokuapp.com/chatroom/${id}/messages/${mId}`)
-}
-
-export { getChatRoom , addMessage, deleteMessage, getCurrentChatRoom, createChatRoom, deleteChatRoom};
+export { getChatRoom , getCurrentChatRoom, createChatRoom, deleteChatRoom};

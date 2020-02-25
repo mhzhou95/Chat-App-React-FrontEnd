@@ -1,13 +1,8 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { Fragment } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { createChatRoom, deleteChatRoom } from '../Services/ChatRoomService';
 
 const Sidebar = (props) => {
-  const [ state, setState ] = useState({
-    id: "",
-    makerId: ""
-  });
-
   const history = useHistory();
   const handleCreateChatRoom = () => {
     let data = { 
@@ -19,22 +14,10 @@ const Sidebar = (props) => {
     createChatRoom(data)
   }
   const handleDeleteChatRoom = (event) => {
-    setState({
-      ...state,
-      id: event.target.value,
-      makerId: props.user.id
-    })
-  }
-  useEffect(() => {
-    if(state.id.length > 0 && state.makerId.length > 0){
-      deleteChatRoom(state.id, state.makerId)
-      setState({
-        id: "",
-        makerId: ""
-      })
+    event.preventDefault();
+      deleteChatRoom(event.target.value, props.user.id)
       history.push("/1");
-    }
-  }, [state, history]);
+  }
 
   return (
     <div className='sidebar'>
