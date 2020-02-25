@@ -41,10 +41,16 @@ const ChatRoom = (props) => {
   }, 500);
 
   useEffect(()=>{
+    let mounted = true;
       setInterval(()=>{
-        getAllMessages(props.chatRoomId)
-        .then(data => setMessageList(data));
+        if(mounted){
+          getAllMessages(props.chatRoomId)
+          .then(data => setMessageList(data));
+        }
       }, 500)
+      return () => {
+        mounted = false;
+      }
   }, [props.chatRoomId])
  
   useEffect(()=> {
