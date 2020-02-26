@@ -3,7 +3,7 @@ import Message from './Message';
 import { getAllMessages, createMessage } from '../Services/MessageService';
 import { getCurrentChatRoom } from '../Services/ChatRoomService';
 import $ from 'jquery';
-
+// importing jquery
 const ChatRoom = (props) => {
   const initialStateMessage = {
     text: "",
